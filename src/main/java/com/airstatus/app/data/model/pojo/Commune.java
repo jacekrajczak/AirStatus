@@ -1,4 +1,4 @@
-package com.airstatus.app.data.pojo.station;
+package com.airstatus.app.data.model.pojo;
 
 public class Commune {
 

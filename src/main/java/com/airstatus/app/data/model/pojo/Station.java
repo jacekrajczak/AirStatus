@@ -1,4 +1,4 @@
-package com.airstatus.app.data.pojo.station;
+package com.airstatus.app.data.model.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
