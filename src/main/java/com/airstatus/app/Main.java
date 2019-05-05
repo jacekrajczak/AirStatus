@@ -1,37 +1,35 @@
 package com.airstatus.app;
 
-import com.airstatus.app.data.model.pojo.AirQualityIndex;
-import com.airstatus.app.data.model.pojo.IndexLevel;
+import com.airstatus.app.data.model.json.JsonRetriever;
+import com.airstatus.app.data.model.pojo.air.AirQualityIndex;
+import com.airstatus.app.data.model.pojo.air.AirQualityDetails;
 import com.airstatus.app.data.model.pojo.Sensor;
 import com.airstatus.app.data.model.pojo.Station;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.airstatus.app.data.model.services.implementation.StationServiceImpl;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 public class Main {
 
+    static final int INOWROCLAW_ID = 143;
+
     public static void main(String[] args) {
 
-        final String FIND_ALL_URL = "http://api.gios.gov.pl/pjp-api/rest/station/findAll";
-        final String SENSORS_URL = "http://api.gios.gov.pl/pjp-api/rest/station/sensors/143";
-        final String AIR_STATUS_INDEX = "http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/143";
+        StationServiceImpl stationService = new StationServiceImpl();
 
-        ObjectMapper objectMapper = new ObjectMapper();
         List<Station> allStations = null;
         List<Sensor> sensorsForChoosenStation = null;
-        IndexLevel indexLevel = null;
+        AirQualityDetails indexLevelDetails = null;
 
         try {
-            URL jsonUrl = new URL(FIND_ALL_URL);
-            URL sensorUrl = new URL(SENSORS_URL);
-            URL indexUrl = new URL(AIR_STATUS_INDEX);
+            allStations = stationService.getAllStations();
 
-            allStations = objectMapper.readValue(jsonUrl,new TypeReference<List<Station>>(){});
-            sensorsForChoosenStation = objectMapper.readValue(sensorUrl, new TypeReference<List<Sensor>>(){});
-            indexLevel = objectMapper.readValue(indexUrl, AirQualityIndex.class).getPm10IndexLevel();
+            //przerobic na serwis --->
+
+            sensorsForChoosenStation = JsonRetriever.getAllSensorsForStation(INOWROCLAW_ID);
+            AirQualityIndex airIndexLevel = JsonRetriever.getQualityIndexesForStation(INOWROCLAW_ID);
+            indexLevelDetails = airIndexLevel.getPm10IndexLevel();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,7 +53,7 @@ public class Main {
             System.out.println(s.toString());
         }
 
-        System.out.println("\nPył zawieszony status jakości: " + indexLevel.toString());
+        System.out.println("\nPył zawieszony status jakości: " + indexLevelDetails.toString());
 
     }
 
