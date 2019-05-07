@@ -25,15 +25,13 @@ public class CityDAO {
         }
 
     private static void assignStationsToCity(Station s) {
-        if(s.getCity()!=null){
-            List<Station> stations = stationsPerCity.get(s.getCity().getName());
-            if(stations==null){
-                stations = new ArrayList<>();
-                stations.add(s);
-                stationsPerCity.put(s.getCity().getName(),stations);
-            }else {
-                if(!stations.contains(s)) stations.add(s);
-            }
+        List<Station> stations = stationsPerCity.get(s.getCity().getName());
+        if(stations==null){
+            stations = new ArrayList<>();
+            stations.add(s);
+            stationsPerCity.put(s.getCity().getName(),stations);
+        }else {
+            if(!stations.contains(s)) stations.add(s);
         }
     }
 }
