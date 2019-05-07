@@ -6,25 +6,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StationDAO {
 
     private static final String FIND_ALL_URL = "http://api.gios.gov.pl/pjp-api/rest/station/findAll";
     private static ObjectMapper mapper = new ObjectMapper();
+    private static List<Station> stations = new ArrayList<>();
 
-    public static List<Station> getAllStationsAsJson() throws IOException {
-        return mapper.readValue(new URL(FIND_ALL_URL),new TypeReference<List<Station>>(){});
+    static{
+        try {
+            stations = mapper.readValue(new URL(FIND_ALL_URL),new TypeReference<List<Station>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public Station getStationById(int stationId) throws IOException {
-        Station foundStation = null;
-
-        for (Station s: getAllStationsAsJson()) {
-            if(s.getId() == stationId)
-                foundStation = s;
-        }
-        return foundStation;
+    public static List<Station> getStations() {
+        return stations;
     }
 
 }

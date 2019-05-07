@@ -8,6 +8,5 @@ import java.util.List;
 public interface StationService {
 
     List<Station> getAllStations() throws IOException;
-    Station getStationById(int stationID) throws IOException;
     Station getStationByName(String stationName);
 }

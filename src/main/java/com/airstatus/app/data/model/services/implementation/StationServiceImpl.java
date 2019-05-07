@@ -17,12 +17,7 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public List<Station> getAllStations() throws IOException {
-        return StationDAO.getAllStationsAsJson();
-    }
-
-    @Override
-    public Station getStationById(int stationID) throws IOException {
-        return stationDAO.getStationById(stationID);
+        return StationDAO.getStations();
     }
 
     @Override

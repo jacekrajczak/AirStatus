@@ -1,11 +1,11 @@
 package com.airstatus.app;
 
+import com.airstatus.app.data.model.dao.CityDAO;
 import com.airstatus.app.data.model.json.JsonRetriever;
 import com.airstatus.app.data.model.pojo.air.AirQualityIndex;
 import com.airstatus.app.data.model.pojo.air.AirQualityDetails;
 import com.airstatus.app.data.model.pojo.Sensor;
 import com.airstatus.app.data.model.pojo.Station;
-import com.airstatus.app.data.model.services.implementation.StationServiceImpl;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,17 +16,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        StationServiceImpl stationService = new StationServiceImpl();
-
-        List<Station> allStations = null;
         List<Sensor> sensorsForChoosenStation = null;
         AirQualityDetails indexLevelDetails = null;
 
         try {
-            allStations = stationService.getAllStations();
-
-            //przerobic na serwis --->
-
             sensorsForChoosenStation = JsonRetriever.getAllSensorsForStation(INOWROCLAW_ID);
             AirQualityIndex airIndexLevel = JsonRetriever.getQualityIndexesForStation(INOWROCLAW_ID);
             indexLevelDetails = airIndexLevel.getPm10IndexLevel();
@@ -35,9 +28,9 @@ public class Main {
             e.printStackTrace();
         }
 
-        Station inowroclaw = null;
+       /* Station inowroclaw = null;
 
-        for(Station s : allStations){
+        for(Station s : StationDAO.getStations()){
             if(s.getId() == 143){
                 inowroclaw = s;
             }
@@ -53,8 +46,13 @@ public class Main {
             System.out.println(s.toString());
         }
 
-        System.out.println("\nPył zawieszony status jakości: " + indexLevelDetails.toString());
+        System.out.println("\nPył zawieszony status jakości: " + indexLevelDetails.toString());*/
 
+        System.out.println(CityDAO.getStationsPerCity().size());
+
+        for(Station s : CityDAO.getStationsForCity("Warszawa")){
+            System.out.println(s);
+        }
     }
 
 }
