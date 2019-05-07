@@ -1,13 +1,13 @@
 package com.airstatus.app.data.model.pojo.air;
 
-public class AirQualityDetails {
+public class AirIndexDetails {
 
     private int id;
     private String indexLevelName;
 
-    public AirQualityDetails(){}
+    public AirIndexDetails(){}
 
-    public AirQualityDetails(int id, String indexLevelName) {
+    public AirIndexDetails(int id, String indexLevelName) {
         this.id = id;
         this.indexLevelName = indexLevelName;
     }
@@ -30,7 +30,7 @@ public class AirQualityDetails {
 
     @Override
     public String toString() {
-        return "AirQualityDetails{" +
+        return "AirIndexDetails{" +
                 "id=" + id +
                 ", indexLevelName='" + indexLevelName + '\'' +
                 '}';

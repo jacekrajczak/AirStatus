@@ -3,16 +3,16 @@ package com.airstatus.app.data.model.pojo.air;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AirQualityIndex {
+public class AirIndex {
 
     private int id;
     private String pm10CalcDate;
 
-    private AirQualityDetails pm10IndexLevel;
+    private AirIndexDetails pm10IndexLevel;
 
-    public AirQualityIndex(){}
+    public AirIndex(){}
 
-    public AirQualityIndex(int id, String pm10CalcDate, AirQualityDetails pm10IndexLevel) {
+    public AirIndex(int id, String pm10CalcDate, AirIndexDetails pm10IndexLevel) {
         this.id = id;
         this.pm10CalcDate = pm10CalcDate;
         this.pm10IndexLevel = pm10IndexLevel;
@@ -34,17 +34,17 @@ public class AirQualityIndex {
         this.pm10CalcDate = pm10CalcDate;
     }
 
-    public AirQualityDetails getPm10IndexLevel() {
+    public AirIndexDetails getPm10IndexLevel() {
         return pm10IndexLevel;
     }
 
-    public void setPm10IndexLevel(AirQualityDetails pm10IndexLevel) {
+    public void setPm10IndexLevel(AirIndexDetails pm10IndexLevel) {
         this.pm10IndexLevel = pm10IndexLevel;
     }
 
     @Override
     public String toString() {
-        return "AirQualityIndex{" +
+        return "AirIndex{" +
                 "id=" + id +
                 ", pm10CalcDate='" + pm10CalcDate + '\'' +
                 ", pm10IndexLevel=" + pm10IndexLevel +

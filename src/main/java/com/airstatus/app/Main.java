@@ -1,58 +1,21 @@
 package com.airstatus.app;
 
-import com.airstatus.app.data.model.dao.CityDAO;
-import com.airstatus.app.data.model.json.JsonRetriever;
-import com.airstatus.app.data.model.pojo.air.AirQualityIndex;
-import com.airstatus.app.data.model.pojo.air.AirQualityDetails;
-import com.airstatus.app.data.model.pojo.Sensor;
-import com.airstatus.app.data.model.pojo.Station;
-
-import java.io.IOException;
-import java.util.List;
+import com.airstatus.app.data.model.services.airstatus.AirStatusServiceImpl;
 
 public class Main {
 
-    static final int INOWROCLAW_ID = 143;
-
     public static void main(String[] args) {
 
-        List<Sensor> sensorsForChoosenStation = null;
-        AirQualityDetails indexLevelDetails = null;
-
-        try {
-            sensorsForChoosenStation = JsonRetriever.getAllSensorsForStation(INOWROCLAW_ID);
-            AirQualityIndex airIndexLevel = JsonRetriever.getQualityIndexesForStation(INOWROCLAW_ID);
-            indexLevelDetails = airIndexLevel.getPm10IndexLevel();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-       /* Station inowroclaw = null;
-
-        for(Station s : StationDAO.getStations()){
-            if(s.getId() == 143){
-                inowroclaw = s;
-            }
-        }
-
-        System.out.println(inowroclaw.toString());
-        System.out.println(inowroclaw.getCity().toString());
-        System.out.println(inowroclaw.getCity().getCommune().toString()+"\n");
-
-        System.out.println("Rodzaje sensorów:");
-
-        for(Sensor s : sensorsForChoosenStation){
-            System.out.println(s.toString());
-        }
-
-        System.out.println("\nPył zawieszony status jakości: " + indexLevelDetails.toString());*/
-
-        System.out.println(CityDAO.getStationsPerCity().size());
-
-        for(Station s : CityDAO.getStationsForCity("Warszawa")){
+        /*for(Station s : CityDAO.getStationsForCity("Warszawa")){
             System.out.println(s);
-        }
+        }*/
+
+        AirStatusServiceImpl airStatusService = new AirStatusServiceImpl();
+        airStatusService.getPM10IndexForCurrentCity("Inowrocław");
+        airStatusService.getPM10IndexForCurrentCity("Warszawa");
+
+
+
     }
 
 }
