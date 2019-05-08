@@ -4,6 +4,6 @@ public enum Cities {
     Wrocław,
     Gdańsk,
     Bydgoszcz,
-    Inowrocław,
+    Kraków,
     Poznań
 }
