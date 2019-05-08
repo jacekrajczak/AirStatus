@@ -62,6 +62,7 @@ public class MainMenu {
                 System.exit(0);
             default:
                 System.out.println("Wrong option...");
+                showIndexMenu();
         }
     }
 
@@ -80,6 +81,7 @@ public class MainMenu {
                 System.exit(0);
             default:
                 System.out.println("Wrong option...");
+                showIndexMenu();
         }
     }
 
