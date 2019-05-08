@@ -10,7 +10,8 @@ import java.util.List;
 
 public class AirStatusServiceImpl implements AirStatusService {
     @Override
-    public void getPM10IndexForCurrentCity(String city) {
+    public double getPM10IndexForCurrentCity(String city) {
+        double averagePM10 = 0;
         int iterates = 0;
         double indexSum = 0;
         for(Station s : CityDAO.getStationsForCity(city)){
@@ -19,19 +20,20 @@ public class AirStatusServiceImpl implements AirStatusService {
                 Sensor paramSensor = SensorDAO.getSensorWithParam("PM10",sensors);
                 if (paramSensor != null) {
                     List<Double> airValues = AirQualityDAO.getValuesForSensor(paramSensor);
-                    indexSum+=averagePM10IndexForCity(airValues);
+                    indexSum+= sumOfPM10Indexes(airValues);
                     iterates+=airValues.size();
                 }
             }
-
         }
-        System.out.println(indexSum/iterates);
+        averagePM10 = indexSum/iterates;
+        System.out.printf("PM10 index for " + city + ": " + "%.2f" ,averagePM10);
+        return averagePM10;
     }
 
-    private Double averagePM10IndexForCity(List<Double> PM10Indexes){
+    private Double sumOfPM10Indexes(List<Double> PM10Indexes){
         double sum = 0;
-        for (Double d : PM10Indexes)
-            sum+=d;
+        for (Double index : PM10Indexes)
+            sum+=index;
         return sum;
     }
 }
