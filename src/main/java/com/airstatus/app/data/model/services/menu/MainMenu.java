@@ -12,11 +12,11 @@ public class MainMenu {
     private void showMenu(String indexParameter){
         System.out.println(">>>> AirStatus - check your air quality index <<<<");
         System.out.println("Choose your city:" +
-                            "\n1) Gdańsk." +
-                            "\n2) Wrocław." +
+                            "\n1) Gdansk." +
+                            "\n2) Wroclaw." +
                             "\n3) Bydgoszcz." +
-                            "\n4) Poznań." +
-                            "\n5) Kraków."+
+                            "\n4) Poznan." +
+                            "\n5) Krakow."+
                             "\n6) Exit.");
         try{
         menuImplementation(Integer.parseInt(scanner.next().trim()),indexParameter);
@@ -29,9 +29,9 @@ public class MainMenu {
     public void showIndexMenu(){
         System.out.println("Choose Air Quality Index you want to check:");
         System.out.println(
-                "1) PM10. (Pył zawieszony PM10)" +
+                "1) PM10. (Pyl zawieszony PM10)" +
                 "\n2) C6H6. (Benzen)" +
-                "\n3) CO. (Tlenek węgla)" +
+                "\n3) CO. (Tlenek wegla)" +
                 "\n4) Exit.");
         try{
             showIndexMenuImpl(Integer.parseInt(scanner.next().trim()));
