@@ -9,27 +9,8 @@ import com.airstatus.app.data.model.pojo.Station;
 import java.util.List;
 
 public class AirStatusServiceImpl implements AirStatusService {
-    @Override
-    public double getPM10IndexForCurrentCity(String city) {
-        double averageIndexValue;
-        int iterates = 0;
-        double indexSum = 0;
-        for(Station s : CityDAO.getStationsForCity(city)){
-            List<Sensor> sensors = SensorDAO.getAllSensorsForStation(s);
-            if(sensors != null){
-                Sensor paramSensor = SensorDAO.getSensorWithParam("PM10",sensors);
-                if (paramSensor != null) {
-                    List<Double> airValues = AirQualityDAO.getValuesForSensor(paramSensor);
-                    indexSum+= sumOfIndexQualityValues(airValues);
-                    iterates+=airValues.size();
-                }
-            }
-        }
-        averageIndexValue = indexSum/iterates;
-        System.out.printf("PM10 index for " + city + ": " + "%.2f" ,averageIndexValue);
-        return averageIndexValue;
-    }
 
+    @Override
     public double getIndexForCurrentCity(String city, String param) {
         double averageIndexValue = 0;
         int iterates = 0;
