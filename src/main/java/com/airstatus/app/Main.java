@@ -1,14 +1,15 @@
 package com.airstatus.app;
 
 
-import com.airstatus.app.data.model.services.menu.MainMenu;
+import com.airstatus.app.data.model.services.menu.ParametersMenu;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        MainMenu menu = new MainMenu();
-        menu.showIndexMenu();
+        ParametersMenu menu = new ParametersMenu();
+        while(true)
+        menu.showParamsMenu();
 
     }
 }

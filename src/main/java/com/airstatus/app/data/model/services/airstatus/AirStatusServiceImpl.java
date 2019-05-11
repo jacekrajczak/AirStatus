@@ -31,6 +31,28 @@ public class AirStatusServiceImpl implements AirStatusService {
         return averageIndexValue;
     }
 
+    @Override
+    public double getCurrentAverageIndexForCity(String city, String param) {
+        double averageCurrentIndexValue;
+        int iterates = 0;
+        double indexSum = 0;
+
+        for(Station s : CityDAO.getStationsForCity(city)){
+            List<Sensor> sensors = SensorDAO.getAllSensorsForStation(s);
+            if(sensors != null){
+                Sensor paramSensor = SensorDAO.getSensorWithParam(param,sensors);
+                if (paramSensor != null) {
+                    double airValue = AirQualityDAO.getValuesForSensor(paramSensor).get(0);
+                    indexSum+= airValue;
+                    iterates++;
+                }
+            }
+        }
+        averageCurrentIndexValue = indexSum/iterates;
+        System.out.printf("Current " + param + " index for " + city + ": " + "%2f",averageCurrentIndexValue);
+        return averageCurrentIndexValue;
+    }
+
     private Double sumOfIndexQualityValues(List<Double> indexValues){
         double sum = 0;
         for (Double index : indexValues)
