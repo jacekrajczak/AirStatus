@@ -27,7 +27,6 @@ public class AirStatusServiceImpl implements AirStatusService {
             }
         }
         averageIndexValue = indexSum/iterates;
-        System.out.printf(param + " index for " + city + ": " + "%2f",averageIndexValue);
         return averageIndexValue;
     }
 
@@ -49,7 +48,6 @@ public class AirStatusServiceImpl implements AirStatusService {
             }
         }
         averageCurrentIndexValue = indexSum/iterates;
-        System.out.printf("Current " + param + " index for " + city + ": " + "%2f",averageCurrentIndexValue);
         return averageCurrentIndexValue;
     }
 

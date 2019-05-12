@@ -4,35 +4,66 @@ import com.airstatus.app.data.model.services.airstatus.AirStatusServiceImpl;
 import com.airstatus.app.data.model.services.menu.choices.Cities;
 import com.airstatus.app.data.model.services.menu.choices.SensorParams;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
-public class ParametersMenu implements Menu{
+public class ParametersMenu{
 
     private Scanner scanner = new Scanner(System.in);
     private AirStatusServiceImpl airStatusService = new AirStatusServiceImpl();
+    private ResourceBundle resourceBundle;
+
+     public void chooseLanguage(){
+        int choice;
+        try{
+            System.out.println("Choose your language:\n1) PL\n2) EN \n3) DE");
+            choice = Integer.parseInt(scanner.next().trim());
+            switch (choice){
+                case 1:
+                    Locale.setDefault(new Locale("pl","PL"));
+                    break;
+                case 2:
+                    Locale.setDefault(new Locale("en","US"));
+                    break;
+                case 3:
+                    Locale.setDefault(new Locale("de","DE"));
+                    break;
+                default:
+                    System.out.println("Wrong option...");
+                    chooseLanguage();
+            }
+        }catch(NumberFormatException e){
+            System.out.println("You must enter a number.");
+            chooseLanguage();
+        }
+    }
 
     public void showParamsMenu(){
-        Menu.super.showParamsMenu();
+        resourceBundle = ResourceBundle.getBundle("MyLabels");
+        System.out.println(resourceBundle.getString("param_menu"));
         try{
             showParamsMenuImpl(Integer.parseInt(scanner.next().trim()));
         }catch(NumberFormatException e){
-            System.out.println("You must enter a number.");
+            System.out.println(resourceBundle.getString("choice_error"));
             showParamsMenu();
         }
     }
 
     private void showAverageOrCurrentMenu(String indexParameter){
-        Menu.super.averageOrCurrentMenu();
+        resourceBundle = ResourceBundle.getBundle("MyLabels");
+        System.out.println(resourceBundle.getString("index_menu"));
         try{
             showAverageOrCurrentMenu(Integer.parseInt(scanner.next().trim()),indexParameter);
         }catch(NumberFormatException e){
-            System.out.println("You must enter a number.");
+            System.out.println(resourceBundle.getString("choice_error"));
             showAverageOrCurrentMenu(indexParameter);
         }
     }
 
     private void showCitiesMenu(String indexParameter, boolean isCurrent){
-        Menu.super.showCitiesMenu();
+        resourceBundle = ResourceBundle.getBundle("MyLabels");
+        System.out.println(resourceBundle.getString("main_menu"));
         try{
             if(isCurrent) {
                 currentIndexMenuImpl(Integer.parseInt(scanner.next().trim()), indexParameter);
@@ -40,7 +71,7 @@ public class ParametersMenu implements Menu{
                 averageIndexMenuImpl(Integer.parseInt(scanner.next().trim()), indexParameter);
             }
         }catch(NumberFormatException e){
-            System.out.println("You must choose City.");
+            System.out.println(resourceBundle.getString("choice_error"));
             showCitiesMenu(indexParameter, isCurrent);
         }
     }
@@ -48,19 +79,24 @@ public class ParametersMenu implements Menu{
     private void averageIndexMenuImpl(int choice, String indexParameter){
         switch(choice){
             case 1:
-                airStatusService.getIndexForCurrentCity(Cities.Gdańsk.name(),indexParameter);
+                System.out.printf(indexParameter + "index : " + "%.2f",
+                airStatusService.getIndexForCurrentCity(Cities.Gdańsk.name(),indexParameter));
                 break;
             case 2:
-                airStatusService.getIndexForCurrentCity(Cities.Wrocław.name(), indexParameter);
+                System.out.printf(indexParameter + "index : " + "%.2f",
+                airStatusService.getIndexForCurrentCity(Cities.Wrocław.name(), indexParameter));
                 break;
             case 3:
-                airStatusService.getIndexForCurrentCity(Cities.Bydgoszcz.name(), indexParameter);
+                System.out.printf(indexParameter + "index : " + "%.2f",
+                airStatusService.getIndexForCurrentCity(Cities.Bydgoszcz.name(), indexParameter));
                 break;
             case 4:
-                airStatusService.getIndexForCurrentCity(Cities.Poznań.name(), indexParameter);
+                System.out.printf(indexParameter + "index : " + "%.2f",
+                airStatusService.getIndexForCurrentCity(Cities.Poznań.name(), indexParameter));
                 break;
             case 5:
-                airStatusService.getIndexForCurrentCity(Cities.Kraków.name(), indexParameter);
+                System.out.printf(indexParameter + "index : " + "%.2f",
+                airStatusService.getIndexForCurrentCity(Cities.Kraków.name(), indexParameter));
                 break;
             case 6:
                 showParamsMenu();
@@ -75,19 +111,24 @@ public class ParametersMenu implements Menu{
     private void currentIndexMenuImpl(int choice, String indexParameter){
         switch(choice){
             case 1:
-                airStatusService.getCurrentAverageIndexForCity(Cities.Gdańsk.name(),indexParameter);
+                System.out.printf("Current " + indexParameter + " index for Gdansk: " + "%2f",
+                airStatusService.getCurrentAverageIndexForCity(Cities.Gdańsk.name(),indexParameter));
                 break;
             case 2:
-                airStatusService.getCurrentAverageIndexForCity(Cities.Wrocław.name(), indexParameter);
+                System.out.printf("Current " + indexParameter + " index for Wroclaw: " + "%2f",
+                airStatusService.getCurrentAverageIndexForCity(Cities.Wrocław.name(), indexParameter));
                 break;
             case 3:
-                airStatusService.getCurrentAverageIndexForCity(Cities.Bydgoszcz.name(), indexParameter);
+                System.out.printf("Current " + indexParameter + " index for Bydgoszcz: " + "%2f",
+                airStatusService.getCurrentAverageIndexForCity(Cities.Bydgoszcz.name(), indexParameter));
                 break;
             case 4:
-                airStatusService.getCurrentAverageIndexForCity(Cities.Poznań.name(), indexParameter);
+                System.out.printf("Current " + indexParameter + " index for Poznan: " + "%2f",
+                airStatusService.getCurrentAverageIndexForCity(Cities.Poznań.name(), indexParameter));
                 break;
             case 5:
-                airStatusService.getCurrentAverageIndexForCity(Cities.Kraków.name(), indexParameter);
+                System.out.printf("Current " + indexParameter + " index for Krakow: " + "%2f",
+                airStatusService.getCurrentAverageIndexForCity(Cities.Kraków.name(), indexParameter));
                 break;
             case 6:
                 showParamsMenu();
